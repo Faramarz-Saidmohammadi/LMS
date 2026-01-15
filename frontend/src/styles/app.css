@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* DaisyUI (اختیاری ولی پیشنهاد می‌کنم) */
+@plugin "daisyui";
+
+/* یکم زیباسازی عمومی */
+html, body {
+  height: 100%;
+}
