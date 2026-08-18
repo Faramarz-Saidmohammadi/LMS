@@ -1,6 +1,18 @@
 node_modules/
 .env
+.env.*
+!.env.example
 build/
 dist/
+coverage/
 .vscode/
 *.stackdump
+
+# Local HTTP/session artifacts
+cookies*.txt
+*.cookie
+*.cookies
+
+# Logs and local runtime output
+*.log
+logs/

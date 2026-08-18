@@ -1,176 +1,189 @@
-# Learning Management System (LMS)
+# Learning Management System
 
-A comprehensive Learning Management System built with the MERN stack (MongoDB, Express, React, Node.js).
+A full-stack learning platform for course publishing, enrollment, structured curriculum delivery, progress tracking, assessments, and administrative review workflows.
 
-## Features
+## Core capabilities
 
-### For Students
-- Browse and search courses
-- Enroll in courses
-- Track learning progress
+### Students
+- Browse and search published courses
+- Enroll and continue active courses
+- Track lesson and curriculum progress
 - Complete quizzes and assignments
-- Earn certificates upon completion
-- Leave reviews and ratings
+- Receive certificates when completion requirements are met
+- Submit course ratings and reviews
 
-### For Collaborators (Instructors)
-- Create and manage courses
-- Build curriculum with articles, videos, and quizzes
-- Submit courses for admin review
-- Track course performance and student engagement
-- Update course content (with approval workflow)
+### Instructors
+- Create and manage course drafts
+- Organize curriculum into sections, articles, videos, and quizzes
+- Submit courses for administrative review
+- Revise content based on feedback
+- Track course activity and learner engagement
 
-### For Admins
-- Manage user invitations
-- Review and approve/reject courses
-- Publish approved courses
-- Monitor platform analytics
-- Manage categories and content
+### Administrators
+- Manage invitations and user access
+- Review, approve, reject, and publish courses
+- Manage categories and platform content
+- Monitor platform-level activity and analytics
 
-## Tech Stack
+## Architecture
+
+The application is separated into an Express API and a React client.
 
 ### Backend
-- **Node.js** & **Express** - Server framework
-- **MongoDB** & **Mongoose** - Database
-- **JWT** - Authentication
-- **bcryptjs** - Password hashing
-- **Cloudinary** - Media storage
-- **PDFKit** - Certificate generation
-- **Nodemailer** - Email sending
+- Node.js and Express
+- MongoDB with Mongoose
+- JWT-based authentication
+- bcryptjs password hashing
+- Zod request validation
+- Helmet and rate limiting
+- Cloudinary media integration
+- Nodemailer email delivery
+- PDFKit certificate generation
+- Swagger API documentation
+- Jest and Supertest verification
 
 ### Frontend
-- **React 19** - UI framework
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **DaisyUI** - Component library
-- **Zustand** - State management
-- **React Router** - Routing
-- **Axios** - HTTP client
+- React 19
+- Vite
+- React Router
+- Zustand
+- Axios
+- React Hook Form
+- Tailwind CSS and DaisyUI
 
-## Getting Started
+## Main application workflows
+
+### Course publishing
+1. An instructor creates a draft course.
+2. Curriculum and course metadata are prepared.
+3. The course is submitted for review.
+4. An administrator reviews the submission and may provide feedback.
+5. The instructor can revise rejected or returned content.
+6. Approved content can be published for students.
+
+### Student learning
+1. A student browses published courses.
+2. The student enrolls in a course.
+3. Lessons and curriculum items are completed in sequence.
+4. Progress is recorded as learning items are completed.
+5. Quizzes and other assessments contribute to course completion.
+6. Completion can result in certificate generation where configured.
+
+## Project structure
+
+```text
+├── backend/
+│   ├── controllers/     # Request handlers and application operations
+│   ├── db/              # Database connection
+│   ├── middleware/      # Authentication, authorization, validation, and HTTP middleware
+│   ├── models/          # Mongoose schemas
+│   ├── routes/          # API routes
+│   ├── test/            # Backend test suites
+│   └── utils/           # Shared backend utilities
+├── frontend/
+│   ├── public/          # Static assets
+│   └── src/
+│       ├── api/         # API access helpers
+│       ├── components/  # Reusable UI components
+│       ├── layouts/     # Application layouts
+│       ├── pages/       # Route-level screens
+│       ├── routes/      # Client routing
+│       ├── stores/      # Zustand stores
+│       └── utils/       # Frontend utilities
+├── .github/workflows/   # Continuous integration
+├── CONTRIBUTING.md
+└── SECURITY.md
+```
+
+## Local development
 
 ### Prerequisites
-- Node.js (v16 or higher)
+- Node.js 22
+- npm
 - MongoDB
-- npm or yarn
 
-### Installation
+### Backend
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd lms
-   ```
-
-2. Install backend dependencies:
-   ```bash
-   cd backend
-   npm install
-   ```
-
-3. Install frontend dependencies:
-   ```bash
-   cd ../frontend
-   npm install
-   ```
-
-4. Set up environment variables:
-
-   **Backend (.env)**:
-   ```env
-   MONGO_URI=mongodb://localhost:27017/lms
-   JWT_SECRET=your-jwt-secret
-   CLIENT_URL=http://localhost:5173
-   PORT=5000
-
-   # Email configuration
-   EMAIL_HOST=smtp.gmail.com
-   EMAIL_PORT=587
-   EMAIL_USER=your-email@gmail.com
-   EMAIL_PASS=your-app-password
-
-   # Cloudinary
-   CLOUDINARY_CLOUD_NAME=your-cloud-name
-   CLOUDINARY_API_KEY=your-api-key
-   CLOUDINARY_API_SECRET=your-api-secret
-   ```
-
-   **Frontend (.env)**:
-   ```env
-   VITE_API_BASE_URL=http://localhost:5000
-   VITE_WITH_CREDENTIALS=true
-   ```
-
-5. Start MongoDB service
-
-6. Start the backend:
-   ```bash
-   cd backend
-   npm run dev
-   ```
-
-7. Start the frontend (in a new terminal):
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-
-8. Open [http://localhost:5173](http://localhost:5173) in your browser
-
-## API Documentation
-
-The API documentation is available via Swagger at `/docs` when the backend is running.
-
-## Project Structure
-
-```
-├── backend/
-│   ├── controllers/     # Route handlers
-│   ├── models/         # MongoDB schemas
-│   ├── routes/         # API routes
-│   ├── middleware/     # Express middleware
-│   ├── utils/          # Utility functions
-│   ├── db/            # Database connection
-│   └── tests/         # Test files
-├── frontend/
-│   ├── src/
-│   │   ├── api/       # API calls
-│   │   ├── components/# Reusable components
-│   │   ├── layouts/   # Layout components
-│   │   ├── pages/     # Page components
-│   │   ├── routes/    # Routing config
-│   │   ├── stores/    # Zustand stores
-│   │   └── utils/     # Utilities
-│   └── public/        # Static assets
-└── README.md
+```bash
+cd backend
+npm ci
 ```
 
-## Key Workflows
+Create `backend/.env` with values appropriate for your environment:
 
-### Course Creation Workflow
-1. Collaborator creates course (draft)
-2. Adds curriculum (sections, items)
-3. Submits for review
-4. Admin reviews and provides feedback
-5. Collaborator revises if needed
-6. Admin approves and publishes
-7. Course becomes available to students
+```env
+MONGO_URI=mongodb://localhost:27017/lms
+JWT_SECRET=replace-with-a-strong-secret
+CLIENT_URL=http://localhost:5173
+PORT=5000
 
-### Student Learning Workflow
-1. Browse published courses
-2. Enroll in courses
-3. Complete curriculum items
-4. Take quizzes
-5. Track progress
-6. Earn certificate upon completion
+EMAIL_HOST=smtp.example.com
+EMAIL_PORT=587
+EMAIL_USER=your-email@example.com
+EMAIL_PASS=your-email-password
+
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+```
+
+Start the API:
+
+```bash
+npm run dev
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm ci
+```
+
+Create `frontend/.env`:
+
+```env
+VITE_API_BASE_URL=http://localhost:5000
+VITE_WITH_CREDENTIALS=true
+```
+
+Start the client:
+
+```bash
+npm run dev
+```
+
+The local client is available at `http://localhost:5173` by default. API documentation is exposed at `/docs` by the backend when enabled.
+
+## Quality checks
+
+Backend:
+
+```bash
+cd backend
+npm ci
+npm test
+npm audit --omit=dev --audit-level=high
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm ci
+npm run lint
+npm run build
+npm audit --omit=dev --audit-level=high
+```
+
+The repository CI runs these checks for pull requests and changes to the default branch.
+
+## Security
+
+Keep credentials, cookie exports, access tokens, production data, and local environment files outside version control. Security-sensitive changes should be reviewed carefully, particularly authentication, authorization, uploads, course publication, email/account recovery, and dependency upgrades.
+
+See `SECURITY.md` for reporting and repository-security expectations.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
+Development and review expectations are documented in `CONTRIBUTING.md`.
