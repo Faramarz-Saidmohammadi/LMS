@@ -1,9 +1,8 @@
 name: Dependency Refresh
 
 on:
-  push:
-    branches:
-      - agent/professional-repository-baseline
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
