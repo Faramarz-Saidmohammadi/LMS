@@ -42,3 +42,5 @@ jobs:
           git add backend/package.json backend/package-lock.json frontend/package.json frontend/package-lock.json
           git commit -m "chore: refresh dependency lockfiles"
           git push origin HEAD:agent/professional-repository-baseline
+
+# Temporary maintenance workflow; removed after lockfile refresh.
